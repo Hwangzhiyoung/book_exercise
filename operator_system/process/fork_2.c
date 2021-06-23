@@ -7,6 +7,7 @@ int main(){
 printf("hello (pid:%d)\n", (int)getpid());
 int ret = open("./test.txt",O_WRONLY);
 printf("ret=%d\n",ret);
+char s[] = "Linux Programmer!\n", buffer[80];
 int rc = fork();
 if(rc<0){
     fprintf(stderr,"fork failed\n");
@@ -14,9 +15,12 @@ if(rc<0){
 
 }else if(rc==0){
     printf("ret=%d\n",ret);
+    write(ret, s, sizeof(s));
     printf("hello, i am child (pid:%d)\n", (int)getpid());
+    
 }else{
     printf("ret=%d\n",ret);
+    write(ret, s, sizeof(s));
     printf("hello, i am praent of %d, (pid:%d)\n",rc,(int)getpid());
 }
 
